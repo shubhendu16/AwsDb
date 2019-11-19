@@ -1,0 +1,38 @@
+
+from boto import rds
+import boto3
+import boto.rds
+
+rds = boto3.client('rds-data')
+
+try:
+    response = rds.create_db_instance(
+        DBInstanceIdentifier='Sample1',
+        MasterUsername='ezrx01',
+        MasterUserPassword='Rock$targames1',
+        DBInstanceClass='db.t2.micro',
+        Engine='MySQL',
+        AllocatedStorage=6)
+    print(response)
+except Exception as error:
+    print(error)
+
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+
+conn = boto.rds.connect_to_region(
+    "us-east-1",
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
+command1 = "CREATE TABLE student (id INT, name VARCHAR(255))"
+# student_sql_query = "INSERT INTO student(id,name) VALUES(01, 'John')"
+response1 = rds.execute_statement(
+    database='sample1',
+    resourceArn='arn:aws:rds:us-east-1:832342932192:db:sample1',
+    sql='command1',
+    secretArn='arn:aws:secretsmanager:us-east-1:832342932192:secret:ak1234-cwQhUC'
+)
+conn.commit()
+print("Record Inserted")
+conn.close()
