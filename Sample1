@@ -8,8 +8,8 @@ rds = boto3.client('rds-data')
 try:
     response = rds.create_db_instance(
         DBInstanceIdentifier='Sample1',
-        MasterUsername='ezrx01',
-        MasterUserPassword='Rock$targames1',
+        MasterUsername='',
+        MasterUserPassword='',
         DBInstanceClass='db.t2.micro',
         Engine='MySQL',
         AllocatedStorage=6)
